@@ -53,9 +53,8 @@ jobs:
           path: .
       - name: build and push 
         run: |
-        chmod +x ci/build-docker.sh && ci/build-docker.sh 
-        chmod +x ci/push-docker.sh && ci/push-docker.sh  
-        chmod +x export GIT_COMMIT="GA-$GITHUB_SHA && export GIT_COMMIT="GA-$GITHUB_SHA"
+          chmod +x ci/build-docker.sh && ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
+          chmod +x ci/push-docker.sh && ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
         env: 
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
