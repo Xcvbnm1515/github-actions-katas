@@ -56,8 +56,9 @@ jobs:
           path: .
       - name: build and push 
         run: |
-          chmod +x ci/build-docker.sh && ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
-          chmod +x ci/push-docker.sh && ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
+          export GIT_COMMIT="GA-$GITHUB_SHA"
+          chmod +x ci/build-docker.sh && ci/build-docker.sh 
+          chmod +x ci/push-docker.sh && ci/push-docker.sh 
  # my-job:
  #   runs-on: ubuntu-latest
  #   container: gradle:6-jdk11
