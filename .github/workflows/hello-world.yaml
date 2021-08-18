@@ -52,7 +52,7 @@ jobs:
           path: .
     env: 
         docker_username: ${{ secrets.DOCKER_USERNAME }}
-        docker_password: ${{ secrets.DOCKER_PASSWORD }}
+        docker_password: 26205667-572f-4e1b-84e6-1a07efc19f83
       - name: build and push 
         run: ci/build-docker.sh && ci/push-docker.sh
         with: export GIT_COMMIT="GA-$GITHUB_SHA"
