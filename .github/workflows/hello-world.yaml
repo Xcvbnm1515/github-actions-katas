@@ -23,6 +23,11 @@ jobs:
           path: .
       - name: my-step
         run: chmod +x ci/build-app.sh && ci/build-app.sh
+      - name: Upload new build 
+        uses: actions/upload-artifact@v2 #Here
+        with:
+          name: code
+          path: .
   Test:
     runs-on: ubuntu-latest
     container: gradle:6-jdk11
@@ -35,7 +40,20 @@ jobs:
           path: .
       - name: my-test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-
+  Docker-image:
+    needs: [Build, Test]
+     steps:
+      - name: Download new build 
+        uses: actions/upload-artifact@v2 #here
+        with:
+          name: code
+          path: .
+      env: 
+        docker_username: ${{ secrets.DOCKER_USERNAME }}
+        docker_password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: build and push 
+        run: ci/build-docker.sh && ci/push-docker.sh
+        with: export GIT_COMMIT="GA-$GITHUB_SHA"
  # my-job:
  #   runs-on: ubuntu-latest
  #   container: gradle:6-jdk11
