@@ -34,7 +34,7 @@ jobs:
           name: code
           path: .
       - name: my-test
-        run: chmod +x ci/unit-test-app.sh && ci/build-app.sh
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
 
  # my-job:
  #   runs-on: ubuntu-latest
