@@ -47,7 +47,7 @@ jobs:
       - Test
     steps:
       - name: Download new build 
-        uses: actions/upload-artifact@v2 #here
+        uses: actions/download-artifact@v2 #here
         with:
           name: code
           path: .
