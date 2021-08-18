@@ -41,6 +41,8 @@ jobs:
       - name: my-test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
   Docker-image:
+    runs-on: ubuntu-latest
+    container: gradle:6-jdk11
     needs:
       - Build
       - Test
@@ -50,12 +52,12 @@ jobs:
         with:
           name: code
           path: .
-    env: 
-        docker_username: ${{ secrets.DOCKER_USERNAME }}
-        docker_password: 26205667-572f-4e1b-84e6-1a07efc19f83
       - name: build and push 
         run: ci/build-docker.sh && ci/push-docker.sh
         with: export GIT_COMMIT="GA-$GITHUB_SHA"
+    env: 
+        docker_username: ${{ secrets.DOCKER_USERNAME }}
+        docker_password: 26205667-572f-4e1b-84e6-1a07efc19f83
  # my-job:
  #   runs-on: ubuntu-latest
  #   container: gradle:6-jdk11
