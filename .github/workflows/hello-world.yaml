@@ -41,14 +41,16 @@ jobs:
       - name: my-test
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
   Docker-image:
-    needs: [Build, Test]
-     steps:
+    needs:
+      - Build
+      - Test
+    steps:
       - name: Download new build 
         uses: actions/upload-artifact@v2 #here
         with:
           name: code
           path: .
-      env: 
+    env: 
         docker_username: ${{ secrets.DOCKER_USERNAME }}
         docker_password: ${{ secrets.DOCKER_PASSWORD }}
       - name: build and push 
