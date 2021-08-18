@@ -45,6 +45,9 @@ jobs:
     needs:
       - Build
       - Test
+    env: 
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
     steps:
       - name: Download new build 
         uses: actions/download-artifact@v2 #here
@@ -55,9 +58,6 @@ jobs:
         run: |
           chmod +x ci/build-docker.sh && ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
           chmod +x ci/push-docker.sh && ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
-      env: 
-        docker_username: ${{ secrets.DOCKER_USERNAME }}
-        docker_password: ${{ secrets.DOCKER_PASSWORD }}
  # my-job:
  #   runs-on: ubuntu-latest
  #   container: gradle:6-jdk11
